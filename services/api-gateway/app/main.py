@@ -127,8 +127,8 @@ async def complete_media_upload(
 
 
 def service_not_available(servicename: str):
-    clear_servicename = servicename.replace("service")
-    clear_servicename = clear_servicename.replace("Service")
+    clear_servicename = servicename.replace("service", "")
+    clear_servicename = clear_servicename.replace("Service", "")
     raise HTTPException(
         status_code=503,
         detail=f"{clear_servicename} Service unavailable",

@@ -63,3 +63,21 @@ class MediaRepository:
         await self.session.refresh(media)
 
         return media
+
+    async def mark_processed(
+        self,
+        media: Media,
+        *,
+        preview_key: str,
+        medium_key: str,
+    ) -> Media:
+
+        media.status = "processed"
+
+        media.preview_key = preview_key
+        media.medium_key = medium_key
+
+        await self.session.commit()
+        await self.session.refresh(media)
+
+        return media

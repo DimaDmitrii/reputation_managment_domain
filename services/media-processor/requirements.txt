@@ -1,0 +1,4 @@
+faststream[kafka,cli]
+boto3
+pillow
+pydantic-settings

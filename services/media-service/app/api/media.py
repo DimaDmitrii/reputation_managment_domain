@@ -6,6 +6,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import settings
 from app.db import get_session as get_session_db
+from app.messaging.broker import media_uploaded_publisher
+from app.messaging.events import MediaUploadedEvent
 from app.repositories.media import MediaRepository
 from app.schemas.media import (
     MediaCompleteResponse,
@@ -107,12 +109,27 @@ async def complete_upload(
     actual_size = metadata["ContentLength"]
     check_actual_file_size(actual_size, media.expected_size)
 
-    media = await repository.mark_uploaded(media, actual_size)
+    if media.status == "uploading":
+        media = await repository.mark_uploaded(
+            media,
+            actual_size,
+        )
+
+    event = MediaUploadedEvent.create(
+        media_id=media.id,
+        object_key=media.object_key,
+        content_type=media.content_type,
+    )
+    
+    await media_uploaded_publisher.publish(
+        event.model_dump(mode="json"),
+        key=str(media.id).encode()
+    )
 
     return MediaCompleteResponse(
         media_id=media.id,
         status=media.status,
-        size=media.actual_size,
+        size=media.actual_size or actual_size,
     )
 
 
