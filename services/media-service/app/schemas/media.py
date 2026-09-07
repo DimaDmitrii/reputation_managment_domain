@@ -26,3 +26,9 @@ class MediaCompleteResponse(BaseModel):
     media_id: uuid.UUID
     status: str
     size: int
+
+
+class MediaUploadedData(BaseModel):
+    media_id: uuid.UUID
+    object_key: str
+    content_type: str

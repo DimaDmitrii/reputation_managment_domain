@@ -21,38 +21,56 @@ reputation-mvp/
     │   └── app/
     │       └── main.py
     │
-    └── media-service/
-        ├── Dockerfile
-        ├── requirements.txt
-        ├── alembic.ini
-        │
-        ├── alembic/
-        │   ├── env.py
-        │   └── versions/
-        │       └── 001_create_media.py
-        │
-        └── app/
-            ├── __init__.py
-            ├── main.py
-            ├── config.py
-            ├── db.py
+    ├── media-service/
+    │   ├── Dockerfile
+    │   ├── requirements.txt
+    │   ├── alembic.ini
+    │   │
+    │   ├── alembic/
+    │   │   ├── env.py
+    │   │   └── versions/
+    │   │       └── 001_create_media.py
+    │   │
+    │   └── app/
+    │       ├── __init__.py
+    │       ├── main.py
+    │       ├── config.py
+    │       ├── db.py
+    │       │
+    │       ├── api/
+    │       │   ├── __init__.py
+    │       │   └── media.py
+    │       │
+    │       ├── models/
+    │       │   ├── __init__.py
+    │       │   └── media.py
+    │       │
+    │       ├── messaging/
+    │       │   ├── __init__.py
+    │       │   ├── broker.py
+    │       │   ├── events.py
+    │       │   └── handlers.py
+    │       │
+    │       ├── repositories/
+    │       │   ├── __init__.py
+    │       │   └── media.py
+    │       │
+    │       ├── schemas/
+    │       │   ├── __init__.py
+    │       │   └── media.py
+    │       │
+    │       └── services/
+    │           ├── __init__.py
+    │           └── storage.py
+    │
+    └── media-processor/
+            ├── Dockerfile
+            ├── requirements.txt
             │
-            ├── api/
-            │   ├── __init__.py
-            │   └── media.py
-            │
-            ├── models/
-            │   ├── __init__.py
-            │   └── media.py
-            │
-            ├── repositories/
-            │   ├── __init__.py
-            │   └── media.py
-            │
-            ├── schemas/
-            │   ├── __init__.py
-            │   └── media.py
-            │
-            └── services/
+            └── app/
                 ├── __init__.py
-                └── storage.py
+                ├── main.py
+                ├── config.py
+                ├── events.py
+                ├── storage.py
+                └── image_processor.py

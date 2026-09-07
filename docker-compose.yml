@@ -199,6 +199,28 @@ services:
       - media-service
 
 
+  media-processor:
+    build:
+      context: ./services/media-processor
+
+    container_name: media-processor
+
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:19092
+
+      S3_ENDPOINT: http://minio:9000
+      S3_ACCESS_KEY: ${MINIO_ROOT_USER}
+      S3_SECRET_KEY: ${MINIO_ROOT_PASSWORD}
+      S3_BUCKET: review-media
+      S3_REGION: us-east-1
+
+    depends_on:
+      - kafka
+      - minio
+
+    restart: unless-stopped
+
+
 volumes:
   kafka_data:
   postgres_data:

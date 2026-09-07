@@ -62,3 +62,13 @@ class Media(Base):
         onupdate=func.now(),
         nullable=False,
     )
+    
+    preview_key: Mapped[str | None] = mapped_column(
+        String(512),
+        nullable=True,
+    )
+
+    medium_key: Mapped[str | None] = mapped_column(
+        String(512),
+        nullable=True,
+    )

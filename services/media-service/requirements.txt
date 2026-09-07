@@ -7,3 +7,5 @@ alembic
 
 boto3
 pydantic-settings
+
+faststream[kafka]

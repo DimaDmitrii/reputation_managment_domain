@@ -4,6 +4,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     database_url: str
 
+    kafka_bootstrap_servers: str = "kafka:19092"
+
     s3_internal_endpoint: str
     s3_public_endpoint: str
     s3_access_key: str
