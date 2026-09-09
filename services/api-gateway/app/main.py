@@ -5,6 +5,7 @@ from fastapi import FastAPI, HTTPException
 
 
 from app.schemas.media import MediaUploadCreate
+from app.schemas.review import ReviewCreate
 
 app = FastAPI(
     title="API Gateway",
@@ -121,6 +122,61 @@ async def complete_media_upload(
                 "detail",
                 "Media Service error",
             ),
+        )
+
+    return response.json()
+
+
+@app.post(
+    "/api/v1/reviews",
+    status_code=201,
+)
+async def create_review(
+    data: ReviewCreate,
+):
+    try:
+        async with httpx.AsyncClient(
+            timeout=5
+        ) as client:
+
+            response = await client.post(
+                f"{REVIEW_SERVICE_URL}/reviews",
+                json=data.model_dump(),
+            )
+
+    except httpx.RequestError:
+        raise HTTPException(
+            status_code=503,
+            detail="Review Service unavailable",
+        )
+
+    if response.status_code >= 400:
+        raise HTTPException(
+            status_code=response.status_code,
+            detail=response.json(),
+        )
+
+    return response.json()
+
+
+@app.get(
+    "/api/v1/reviews/{review_id}"
+)
+async def get_review(
+    review_id: str,
+):
+    async with httpx.AsyncClient(
+        timeout=5
+    ) as client:
+
+        response = await client.get(
+            f"{REVIEW_SERVICE_URL}/reviews/{review_id}"
+        )
+
+    if response.status_code >= 400:
+        raise HTTPException(
+            status_code=response.status_code,
+            detail=response.json(),
         )
 
     return response.json()

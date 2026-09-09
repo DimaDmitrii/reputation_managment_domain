@@ -15,12 +15,6 @@ reputation-mvp/
     │   └── app/
     │       └── main.py
     │
-    ├── review-service/
-    │   ├── Dockerfile
-    │   ├── requirements.txt
-    │   └── app/
-    │       └── main.py
-    │
     ├── media-service/
     │   ├── Dockerfile
     │   ├── requirements.txt
@@ -63,14 +57,48 @@ reputation-mvp/
     │           ├── __init__.py
     │           └── storage.py
     │
-    └── media-processor/
-            ├── Dockerfile
-            ├── requirements.txt
-            │
-            └── app/
-                ├── __init__.py
-                ├── main.py
-                ├── config.py
-                ├── events.py
-                ├── storage.py
-                └── image_processor.py
+    ├── media-processor/
+    │   ├── Dockerfile
+    │   ├── requirements.txt
+    │   │
+    │   └── app/
+    │       ├── __init__.py
+    │       ├── main.py
+    │       ├── config.py
+    │       ├── events.py
+    │       ├── storage.py
+    │       └── image_processor.py
+    │
+    ├── review-service/
+    │   ├── Dockerfile
+    │   ├── requirements.txt
+    │   ├── alembic.ini
+    │   ├── alembic/
+    │   └── app/
+    │       ├── api/
+    │       ├── messaging/
+    │       ├── models/
+    │       ├── repositories/
+    │       ├── schemas/
+    │       ├── config.py
+    │       ├── db.py
+    │       └── main.py
+    │
+    ├── moderation-service/
+    │   ├── Dockerfile
+    │   ├── requirements.txt
+    │   └── app/
+    │       ├── config.py
+    │       ├── events.py
+    │       └── main.py
+    │
+    └── ai-moderation-service/
+        ├── Dockerfile
+        ├── requirements.txt
+        └── app/
+            ├── main.py
+            ├── schemas.py
+            └── graph/
+                ├── state.py
+                ├── nodes.py
+                └── graph.py
